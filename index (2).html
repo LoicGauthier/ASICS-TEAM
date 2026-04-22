@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asics Team — Accès Équipe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a1628;
+    --mid: #0f2044;
+    --acc: #3498db;
+    --wh: #ffffff;
+    --mist: #8aa8d4;
+    --bd: rgba(40,85,160,.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--wh);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated background circles */
+  body::before {
+    content: '';
+    position: fixed;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(52,152,219,.12) 0%, transparent 70%);
+    top: -200px; right: -200px;
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(26,75,189,.15) 0%, transparent 70%);
+    bottom: -150px; left: -150px;
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+    pointer-events: none;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  .card {
+    background: rgba(15,32,68,.85);
+    border: 1px solid var(--bd);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 32px 80px rgba(0,0,0,.5);
+    position: relative;
+    z-index: 10;
+    animation: fadeUp .6s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Logo */
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .9rem;
+    margin-bottom: 2rem;
+  }
+  .logo-wrap svg { height: 38px; }
+  .logo-text { text-align: left; }
+  .logo-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: .18em;
+    color: var(--wh);
+    line-height: 1;
+    display: block;
+  }
+  .logo-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    color: var(--mist);
+    letter-spacing: .2em;
+    display: block;
+    margin-top: .1rem;
+  }
+
+  /* Divider */
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--acc), #1a4bbd);
+    border-radius: 99px;
+    margin: 0 auto 1.8rem;
+  }
+
+  /* Headline */
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    letter-spacing: .08em;
+    color: var(--wh);
+    line-height: 1.05;
+    margin-bottom: .7rem;
+  }
+  .subtitle {
+    font-size: .9rem;
+    color: var(--mist);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* QR Code */
+  .qr-wrap {
+    background: var(--wh);
+    border-radius: 16px;
+    padding: 1.1rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,.3);
+  }
+  .qr-wrap canvas, .qr-wrap img {
+    display: block;
+    width: 180px;
+    height: 180px;
+  }
+  .qr-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    color: var(--mist);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+  }
+
+  /* CTA Button */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: linear-gradient(135deg, #1a4bbd 0%, #3498db 100%);
+    color: var(--wh);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-decoration: none;
+    padding: .9rem 2rem;
+    border-radius: 12px;
+    width: 100%;
+    justify-content: center;
+    transition: all .2s;
+    box-shadow: 0 8px 24px rgba(52,152,219,.35);
+    margin-bottom: 1rem;
+  }
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(52,152,219,.5);
+    filter: brightness(1.08);
+  }
+  .btn-cta svg { width: 20px; height: 20px; }
+
+  /* URL display */
+  .url-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    color: var(--mist);
+    background: rgba(40,85,160,.15);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: .5rem .8rem;
+    word-break: break-all;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: border-color .15s;
+    margin-bottom: 1.5rem;
+  }
+  .url-display:hover { border-color: var(--acc); }
+  .copy-hint {
+    font-size: .68rem;
+    color: var(--mist);
+    margin-top: .3rem;
+    display: block;
+  }
+
+  /* Features */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem;
+    margin-bottom: 1.8rem;
+    text-align: left;
+  }
+  .feat {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    font-size: .78rem;
+    color: var(--mist);
+    line-height: 1.4;
+  }
+  .feat-icon {
+    font-size: .9rem;
+    flex-shrink: 0;
+    margin-top: .05rem;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 1.5rem;
+    font-size: .7rem;
+    color: rgba(138,168,212,.4);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--mid);
+    border: 1px solid var(--acc);
+    color: var(--acc);
+    font-size: .8rem;
+    font-weight: 600;
+    padding: .6rem 1.2rem;
+    border-radius: 8px;
+    opacity: 0;
+    transition: all .25s;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 999;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 420px) {
+    .card { padding: 2rem 1.5rem; }
+    h1 { font-size: 2rem; }
+    .features { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <svg viewBox="0 0 200 65" xmlns="http://www.w3.org/2000/svg">
+      <path d="M28 5C14 5 4 18 4 32c0 14 10 26 24 26 7 0 12-4 16-10l-8-4c-2 4-5 7-8 7C18 51 12 42 12 32c0-10 6-19 16-19 3 0 6 3 8 7l8-4C40 10 35 5 28 5z" fill="white"/>
+      <text x="52" y="46" font-family="Arial Black,sans-serif" font-size="38" font-weight="900" fill="white">asics</text>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-title">TEAM</span>
+      <span class="logo-sub">GESTION &Eacute;QUIPE &middot; 2026</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h1>Acc&egrave;s<br>Plateforme</h1>
+  <p class="subtitle">Calendrier, logistique, dotations et suivi administratif de l&rsquo;&eacute;quipe Asics Team.</p>
+
+  <!-- QR Code -->
+  <div class="qr-label">Scanner pour acc&eacute;der</div>
+  <div class="qr-wrap">
+    <canvas id="qr"></canvas>
+  </div>
+
+  <!-- Features -->
+  <div class="features">
+    <div class="feat"><span class="feat-icon">📅</span><span>Calendrier &amp; disponibilit&eacute;s</span></div>
+    <div class="feat"><span class="feat-icon">🚌</span><span>Logistique d&eacute;placements</span></div>
+    <div class="feat"><span class="feat-icon">👕</span><span>Dotations &eacute;quipement</span></div>
+    <div class="feat"><span class="feat-icon">📋</span><span>Dossiers administratifs</span></div>
+    <div class="feat"><span class="feat-icon">📐</span><span>Info membre &amp; sant&eacute;</span></div>
+    <div class="feat"><span class="feat-icon">🔒</span><span>Acc&egrave;s s&eacute;curis&eacute; individuel</span></div>
+  </div>
+
+  <!-- CTA -->
+  <a class="btn-cta" id="appLink" href="#" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    Ouvrir l&rsquo;application
+  </a>
+
+  <!-- URL -->
+  <div class="url-display" id="urlDisplay" onclick="copyUrl()">
+    <span id="urlText">https://script.google.com/a/macros/loicgauthier.com/s/AKfycbwxvJDLfL10a3HFMYnaRKWbanUUnrDGI_s8myhUtmYhdS9MNgc4jNaaAdSrw5zYsQc/exec</span>
+  </div>
+  <span class="copy-hint">&#128203; Cliquer pour copier le lien</span>
+
+  <div class="footer">ASICS TEAM &mdash; SAISON 2026</div>
+</div>
+
+<div class="toast" id="toast">Lien copi&eacute; &#10003;</div>
+
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  var APP_URL = 'https://script.google.com/a/macros/loicgauthier.com/s/AKfycbwxvJDLfL10a3HFMYnaRKWbanUUnrDGI_s8myhUtmYhdS9MNgc4jNaaAdSrw5zYsQc/exec';
+
+  // Set link
+  document.getElementById('appLink').href = APP_URL;
+
+  // Generate QR code
+  new QRCode(document.getElementById('qr'), {
+    text: APP_URL,
+    width: 180,
+    height: 180,
+    colorDark: '#0a1628',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  // Copy URL
+  function copyUrl() {
+    navigator.clipboard.writeText(APP_URL).then(function() {
+      var t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 2000);
+    }).catch(function() {
+      // Fallback
+      var el = document.createElement('textarea');
+      el.value = APP_URL;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      var t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
